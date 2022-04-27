@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="../normalize.css">
+<link rel="stylesheet" href="../styles.css">
+<script>
+  function changeBg(e) {
+    const color = e.currentTarget.id;
+    document.body.style.backgroundColor = color;
+  }
+
+  function init(e) {
+    const aqua = document.getElementById('aqua');
+    const lime = document.getElementById('lime');
+    const pink = document.getElementById('pink');
+    aqua.addEventListener('mouseover', changeBg);
+    lime.addEventListener('mouseover', changeBg);
+    pink.addEventListener('mouseover', changeBg);
+    
+  }
+  window.addEventListener('keydown', init);
+</script>
+
+<title>window load EDITED</title>
+</head>
+<body>
+<main>
+  <button id="aqua">Aqua</button>
+  <button id="lime">Lime</button>
+  <button id="pink">Pink</button>
+</main>
+</body>
+</html>
