@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>CSSAnimation</title>
+ <style>
+         body {
+          margin: 0;
+        }
+
+  #circle {
+            -webkit-border-radius: 25px;
+            -moz-border-radius: 25px;
+            border-radius: 200px;
+         }
+ 
+  .parent{
+    background-color: hsla(200,100%, 20%);
+    height: 400px;
+    width: 400px;
+}
+
+  .child {
+    background-color: red;
+    height: 200px;
+    width: 200px;
+    animation: ltr 5s ease-in-out forwards infinite;
+  }
+  
+    .ball1 {
+    background-color: green;
+    height: 100px;
+    width: 100px;
+    animation: ltrball 2s ease-in-out forwards infinite;
+  }
+  
+  .parent:hover .child {
+  }
+  
+  @keyframes ltr {
+   0% {
+     transform: translateX(0px);
+   }
+   
+   33%{
+    transform: translateY(200px);
+   }
+   
+   66%{
+   transform: translateX(150px) translateY(150px);
+   }
+   
+   80% {
+     transform: translateX(200px) translateY(200px);
+   }
+   
+   90% {
+     transform: translateX(100px) translateY(0px);
+   }
+   
+   100%{
+    transform: translateX(0px);
+   }
+  }
+  
+    @keyframes ltrball {
+   0% {
+     transform: translateX(100px) translateY(200px);
+   }
+   
+   100%{
+    transform: translateX(100px); translateY(200px);
+   }
+  }
+  
+ </style>
+</head>
+<body>
+
+<h1>CSS Animation</h1>
+
+ <div class="parent">
+  <div id="circle" class="child"></div>
+ </div>
+ 
+<div id="circle" class="ball1">Green ball is css, i dont know how its dragging the blue box<div>
+
+
+<h1>PJS Animation Below</h1>
+
+<canvas id="mycanvas"></canvas> 
+
+<script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script>
+
+<script>
+
+
+
+  var programCode = function(processingInstance) {
+    with (processingInstance) {
+      size(200, 200); 
+      frameRate(100);
+        
+      // Paste code from Khan Academy here:
+
+noStroke();
+
+// position of the car
+var x = -100;
+
+
+const H = canvas.height / 2
+ 
+draw = function() {
+    
+    // all lines of code inside here will be run repeatedly
+    background(151, 244, 247);
+    
+    // draw the car body
+    fill(255, 0, 115);
+    rect(x, H, 100, 20);
+    rect(x + 15, H - 22, 70, 40);
+    
+    // draw the wheels
+    fill(77, 66, 66);
+    ellipse(x + 25, H + 21, 24, 24);
+    ellipse(x + 75, H + 21, 24, 24);
+    
+    var y = 1;
+    
+    if (y >= 1) {
+    y = y + 4;
+    
+}
+    
+    if (x < canvas.width) {
+    x = x + y;
+} else {
+x = -100
+}
+
+window.addEventListener('resize', function () { 
+    "use strict";
+    window.location.reload(); 
+});
+
+if (H !== canvas.height / 2) {
+window.location.reload();
+}
+
+};
+
+
+    }};
+
+  // Get the canvas that ProcessingJS will use
+  var canvas = document.getElementById("mycanvas"); 
+  // Pass the function to ProcessingJS constructor
+  var processingInstance = new Processing(canvas, programCode); 
+  </script> 
+
+</body>
+</html>
