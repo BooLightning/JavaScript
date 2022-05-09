@@ -64,11 +64,15 @@
   
     @keyframes ltrball {
    0% {
-     transform: translateX(100px) translateY(200px);
+     transform: translateX(0px) translateY(-800px);
+   }
+   
+   50%{
+   transform: translateX(0px); translateY(0px);
    }
    
    100%{
-    transform: translateX(100px); translateY(200px);
+    transform: translateX(0px); translateY(0px);
    }
   }
   
@@ -82,12 +86,14 @@
   <div id="circle" class="child"></div>
  </div>
  
-<div id="circle" class="ball1">Green ball is css, i dont know how its dragging the blue box<div>
+<h1>PJS Animation</h1>
+
+<canvas id="mycanvas"></canvas>
+ 
+<div id="circle" class="ball1"><div>
 
 
-<h1>PJS Animation Below</h1>
-
-<canvas id="mycanvas"></canvas> 
+ 
 
 <script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script>
 
