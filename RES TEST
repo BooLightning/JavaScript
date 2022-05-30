@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset=utf-8>
+<title>RES TEST</title>
+<style>
+/*
+jpg credit NASA 
+{:link:(https://www.jpl.nasa.gov/images/pia24264-mastcam-zs-first-360-degree-panorama):link:}
+*/
+html { 
+  background: url(https://d2pn8kiwq2w21t.cloudfront.net/original_images/jpegPIA24264.jpg);
+}
+</style>
+</html>
