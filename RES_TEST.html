@@ -21,16 +21,23 @@ font-size: 400%;
 <body>
 <div id="demo"></div>
 <script>
-
+  
+if (removedDecimal > 1)
+  
 var num3 = screen.width * screen.height / Math.pow(10, 6);
-
+  
 const removedDecimal = num3.toFixed(1);
-
+  
 let text = "Total resolution ~ " + removedDecimal + "k";
+  
 document.getElementById("demo").innerHTML = text;
+  
+} 
 
-if (removedDecimal < 1) {
-  text = "This only works on computers";
+else {
+  
+ text = "This only works on computers";
+  
 }
 
 
