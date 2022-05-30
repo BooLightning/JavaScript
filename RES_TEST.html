@@ -11,5 +11,18 @@ jpg credit NASA
 html { 
   background: url(https://d2pn8kiwq2w21t.cloudfront.net/original_images/jpegPIA24264.jpg);
 }
+div {
+position: relative;
+top: 40px;
+}
 </style>
+<body>
+<div id="demo"></div>
+<script>
+var num3 = screen.width * screen.height / Math.pow(10, 6);
+const removedDecimal = num3.toFixed(1);
+let text = "Total resolution ~ " + removedDecimal + "k";
+document.getElementById("demo").innerHTML = text;
+</script>
+</body>
 </html>
