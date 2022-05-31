@@ -17,20 +17,24 @@ top: 40px;
 font-size: 400%;
 }
 </style>
+
 <body>
 <div id="demo"></div>
 <br>
 <div>
 P.S. this does not work on mobile... yet...
-<br>
-If you are on mobile it will say your res is below zero, this is not correct.
 </div>
 <script>
-    var num3 = window.innerWidth * window.innerHeight / Math.pow(10, 6);
-const removedDecimal = num3.toFixed(3);
+
+var num3 = screen.width * screen.height / Math.pow(10, 6);
+
+const removedDecimal = num3.toFixed(1);
 
 let text = "Total resolution ~ " + removedDecimal + "k";
 document.getElementById("demo").innerHTML = text;
+
+
 </script>
 </body>
+
 </html>
