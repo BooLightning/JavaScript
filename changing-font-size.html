@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script>
+    function changeFontSize(elem, change) {
+    // Use parseInt to remove the unit and return an integer
+    const curFontSize = parseInt(getComputedStyle(elem).fontSize);
+
+    // Add change to curFontSize to get newFontSize
+    const newFontSize = curFontSize + change;
+
+    // Set the fontSize by converting newFontSize
+    // to a string and appending unit
+    elem.style.fontSize = String(newFontSize) + 'px';
+    return getComputedStyle(elem).fontSize;
+  }
+  
+//function changeStyleWithPx(elem, styleProp, change) {
+//  const curStyleValue = parseInt(getComputedStyle(elem)[styleProp]);
+//  const newStyleValue = curStyleValue + change;
+//  elem.style[styleProp] = String(newStyleValue) + 'px';
+//  console.log(styleProp + ': ' + elem.style[styleProp]);
+//}
+
+  window.addEventListener('load', function() {
+    const p = document.getElementById('hello-world');
+    const btnIncrease = document.getElementById('increase');
+    const btnDecrease = document.getElementById('decrease');
+
+    btnIncrease.addEventListener('click', function() {
+      // Increase font size by 1 unit
+      const fontSize = changeFontSize(p, 1);
+      console.log(fontSize);
+    });
+
+    btnDecrease.addEventListener('click', function() {
+      // Decrease font size by 1 unit
+      const fontSize = changeFontSize(p, -1);
+      console.log(fontSize);
+    });
+  })
+  
+// Musgrave Pencil Company
+</script>
+<title>Changing Font Size</title>
+</head>
+<body id="changing-styles">
+<main>
+  <label>Change Font:</label>
+  <button id="increase">&uparrow;</button>
+  <button id="decrease">&downarrow;</button>
+  <p id="hello-world">Hello, World!</p>
+</main>
+</body>
+</html>

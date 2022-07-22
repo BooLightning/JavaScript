@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script>
+function toggleVisibility(e) {
+  const button = e.currentTarget;
+  const elem = document.getElementById(button.title);
+  if (getComputedStyle(elem).visibility === "visible") {
+    elem.style.visibility = "hidden";
+  } else {
+    elem.style.visibility = "visible";
+  }
+  const  computedStyle = getComputedStyle(elem);
+  msg(button.title, 'visibility', computedStyle.visibility);
+}
+
+function toggleDisplay(e) {
+  const button = e.currentTarget;
+  const elem = document.getElementById(button.title);
+  if (elem.style.display === "none") {
+    elem.style.display = "table-row";
+  } else {
+    elem.style.display = "none";
+  }
+  const computedStyle = getComputedStyle(elem);
+  msg(button.title, 'display', computedStyle.display);
+}
+
+function msg(elemId, styleProp, styleValue) {
+  document.getElementById("msg").style.display = "block";
+  document.getElementById("elemId").innerHTML = elemId;
+  document.getElementById("styleProp").innerHTML = styleProp;
+  document.getElementById("styleValue").innerHTML = styleValue;
+}
+
+window.addEventListener('load', function() {
+  const btnsVisibility = document.getElementsByClassName('visibility');
+  for (button of btnsVisibility) {
+    button.addEventListener('click', toggleVisibility);
+  }
+
+  const btnsDisplay = document.getElementsByClassName('display');
+  for (button of btnsDisplay) {
+    button.addEventListener('click', toggleDisplay);
+  }
+})
+</script>
+<title>Showing and Hiding Elements with JavaScript</title>
+</head>
+<body>
+<main>
+  <h1>Hiding and Showing Elements</h1>
+  <table>
+    <caption id="msg">
+      <span id="elemId"></span> <em id="styleProp"></em>
+      made <span id="styleValue"></span>
+    </caption>
+    <tr id="tr1"><td>Row 1</td></tr>
+    <tr id="tr2"><td>Row 2</td></tr>
+    <tr id="tr3"><td>Row 3</td></tr>
+    <tr id="tr4"><td>Row 4</td></tr>
+  </table>
+  
+  <h2>visibility</h2>
+  <button title="tr1" class="visibility">Row 1</button>
+  <button title="tr2" class="visibility">Row 2</button>
+  <button title="tr3" class="visibility">Row 3</button>
+  <button title="tr4" class="visibility">Row 4</button>
+
+  <h2>display</h2>
+  <button title="tr1" class="display">Row 1</button>
+  <button title="tr2" class="display">Row 2</button>
+  <button title="tr3" class="display">Row 3</button>
+  <button title="tr4" class="display">Row 4</button>
+</main>
+</body>
+</html>

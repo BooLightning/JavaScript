@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="../normalize.css">
+<link rel="stylesheet" href="../styles.css">
+<script>
+function changeStyle(elem, styleProp, styleValue) {
+  elem.style[styleProp] = styleValue;
+  console.log(styleProp + ': ' + elem.style[styleProp]);
+}
+
+function changeStyleWithPx(elem, styleProp, change) {
+  const	 curStyleValue = parseInt(getComputedStyle(elem)[styleProp]);
+  const newStyleValue = curStyleValue + change;
+  elem.style[styleProp] = String(newStyleValue) + 'px';
+  console.log(styleProp + ': ' + elem.style[styleProp]);
+}
+
+window.addEventListener('load', function() {
+  const p = document.getElementById('hello-world');
+  let selector;
+
+  selector = 'button[data-font-style]';
+  const bsFtStyle = document.querySelectorAll(selector);
+  for (btn of bsFtStyle) {
+    btn.addEventListener('click', function(e) {
+      const fontStyle = e.currentTarget.dataset.fontStyle;
+      changeStyle(p, 'fontStyle', fontStyle);
+    });
+  }
+
+  selector = 'button[data-font-size]';
+  const bsFtSize = document.querySelectorAll(selector);
+  for (btn of bsFtSize) {
+    btn.addEventListener('click', function(e) {
+      const fontSize = e.currentTarget.dataset.fontSize;
+      changeStyle(p, 'fontSize', fontSize);
+    });
+  }
+
+  selector = 'button[data-border-style]';
+  const bsBrdStyle = document.querySelectorAll(selector);
+  for (btn of bsBrdStyle) {
+    btn.addEventListener('click', function(e) {
+      const borderStyle = e.currentTarget.dataset.borderStyle;
+      changeStyle(p, 'borderStyle', borderStyle);
+    });
+  }
+
+  selector = 'button[data-padding]';
+  const bsPadding = document.querySelectorAll(selector);
+  for (btn of bsPadding) {
+    btn.addEventListener('click', function(e) {
+      const target = e.currentTarget;
+      // Use ternary operator to assign change value
+      const change = target.dataset.padding==='increase' ? 10 : -10;
+      changeStyleWithPx(p, 'padding', change);
+    });
+  }
+
+  selector ='button[data-margin]';
+  const bsMargin = document.querySelectorAll(selector);
+  for (btn of bsMargin) {
+    btn.addEventListener('click', function(e) {
+      const target = e.currentTarget;
+      // Use ternary operator to assign change value
+      const change = target.dataset.margin==='increase' ? 10 : -10;
+      changeStyleWithPx(p, 'margin', change);
+    });
+  }
+});
+</script>
+<title>Changing Styles</title>
+</head>
+<body id="changing-styles">
+<main>
+  <div>
+    <label>fontStyle:</label>
+    <button class="font-style italic" data-font-style="italic">Italic</button>
+    <button class="font-style normal" data-font-style="normal">Normal</button>
+  </div>
+  <div>
+    <label>fontSize:</label>
+    <button class="font-size xx-small" data-font-size="xx-small">A</button>
+    <button class="font-size x-small" data-font-size="x-small">A</button>
+    <button class="font-size small" data-font-size="small">A</button>
+    <button class="font-size medium" data-font-size="medium">A</button>
+    <button class="font-size large" data-font-size="large">A</button>
+    <button class="font-size x-large" data-font-size="x-large">A</button>
+    <button class="font-size xx-large" data-font-size="xx-large">A</button>
+  </div>
+  <div>
+    <label>borderStyle:</label>
+    <button class="border-style none" data-border-style="none">none</button>
+    <button class="border-style dotted" data-border-style="dotted">dotted</button>
+    <button class="border-style dashed" data-border-style="dashed">dashed</button>
+    <button class="border-style solid" data-border-style="solid">solid</button>
+  </div>
+  <div>
+    <label>padding:</label>
+    <button class="padding increase" data-padding="increase">Increase</button>
+    <button class="padding decrease" data-padding="decrease">Decrease</button>
+  </div>
+  <div>
+    <label>margin:</label>
+    <button class="margin increase" data-margin="increase">Increase</button>
+    <button class="margin decrease" data-margin="decrease">Decrease</button>
+  </div>
+  <p id="hello-world">Hello, World!</p>
+</main>
+</body>
+</html>

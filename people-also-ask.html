@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script>
+  function toggleDisplay(elem) {
+    if (getComputedStyle(elem).display === "none") {
+      elem.style.display = "block";
+    } else {
+      elem.style.display = "none";
+    }
+  }
+
+function toggleBold(elem) {
+    const weight = getComputedStyle(elem).fontWeight;
+    if (weight === 'bold' || weight > 400) {
+      elem.style.fontWeight = "normal";
+      markRead(elem);
+    } else {
+      elem.style.fontWeight = "bold";
+    }
+  }
+
+  function markRead(elem) {
+    elem.style.opacity = .5;
+  }
+
+
+  function toggleAnswer(e) {
+    const question = e.currentTarget;
+    const answer = question.nextElementSibling;
+    toggleDisplay(answer);
+    toggleBold(question);
+    const chevron = question.querySelector('.chevron');
+    chevron.classList.toggle('fa-chevron-down');
+    chevron.classList.toggle('fa-chevron-up');
+  }
+
+  window.addEventListener('load', function(e) {
+    const questions = document.querySelectorAll('.question');
+    for (question of questions) {
+      question.addEventListener('click', toggleAnswer);
+    }
+  });
+</script>
+<title>People Also Ask</title>
+</head>
+<body id="people-also-ask">
+<main>
+  <h1>People also ask</h1>
+  <ul id="questions">
+    <li>
+      <div class="question">
+        How do I enable JavaScript Chrome?
+        <i class="fas fa-chevron-down chevron"></i>
+      </div>
+      <div class="answer">
+        <p><strong>If you'd like to turn JavaScript 
+    off or on for all sites:</strong></p>
+        <ol>
+          <li>Click the Chrome menu in the top right-hand
+      corner of your browser.</li>
+          <li>Select Settings.</li>
+          <li>Click Show advanced settings.</li>
+          <li>Under the "Privacy" section, 
+      click the Content settings button.</li>
+        </ol>
+      </div>
+    </li>
+
+  </ul>
+</main>
+</body>
+</html>
