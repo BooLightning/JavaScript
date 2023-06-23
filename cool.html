@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Improved Canvas Animation with Collisions</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+        #mycanvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="mycanvas"></canvas>
+    <script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script>
+    <script>
+        var programCode = function(processingInstance) {
+            with (processingInstance) {
+                size(window.innerWidth, window.innerHeight);
+                frameRate(60);
+
+                // Ball properties
+                var balls = [];
+                var numBalls = 300;
+                var minRadius = 10;
+                var maxRadius = 40;
+                var minSpeed = 1;
+                var maxSpeed = 5;
+                var collisionPadding = 2;
+
+                // Initialize balls with random positions, sizes, and speeds
+                for (var i = 0; i < numBalls; i++) {
+                    var ball = {
+                        x: random(maxRadius, width - maxRadius),
+                        y: random(maxRadius, height - maxRadius),
+                        radius: random(minRadius, maxRadius),
+                        speed: random(minSpeed, maxSpeed),
+                        angle: random(TWO_PI)
+                    };
+
+                    balls.push(ball);
+                }
+
+                var draw = function() {
+                    background(26, 0, 41);
+
+                    for (var i = 0; i < balls.length; i++) {
+                        var ball = balls[i];
+
+                        // Update ball position based on speed and angle
+                        ball.x += cos(ball.angle) * ball.speed;
+                        ball.y += sin(ball.angle) * ball.speed;
+
+                        // Check for collisions with the edges of the canvas
+                        if (ball.x - ball.radius < 0 || ball.x + ball.radius > width) {
+                            ball.angle = PI - ball.angle; // Reverse the angle upon collision with vertical edges
+
+                            // Separate the ball from the wall
+                            if (ball.x - ball.radius < 0) {
+                                ball.x = ball.radius + collisionPadding;
+                            } else {
+                                ball.x = width - ball.radius - collisionPadding;
+                            }
+                        }
+                        if (ball.y - ball.radius < 0 || ball.y + ball.radius > height) {
+                            ball.angle = -ball.angle; // Reverse the angle upon collision with horizontal edges
+
+                            // Separate the ball from the wall
+                            if (ball.y - ball.radius < 0) {
+                                ball.y = ball.radius + collisionPadding;
+                            } else {
+                                ball.y = height - ball.radius - collisionPadding;
+                            }
+                        }
+
+                        // Check for collisions with other balls
+                        for (var j = i + 1; j < balls.length; j++) {
+                            var otherBall = balls[j];
+                            var dx = otherBall.x - ball.x;
+                            var dy = otherBall.y - ball.y;
+                            var distance = dist(ball.x, ball.y, otherBall.x, otherBall.y);
+                            var minDistance = ball.radius + otherBall.radius;
+
+                            if (distance < minDistance) {
+                                // Calculate collision response
+                                var angle = atan2(dy, dx);
+                                var targetX = ball.x + cos(angle) * minDistance;
+                                var targetY = ball.y + sin(angle) * minDistance;
+                                var ax = (targetX - otherBall.x) * 0.1;
+                                var ay = (targetY - otherBall.y) * 0.1;
+
+                                // Update velocities
+                                ball.angle = atan2(ay, ax);
+                                otherBall.angle = atan2(-ay, -ax);
+
+                                // Separate the balls slightly
+                                var overlap = minDistance - distance + collisionPadding;
+                                ball.x -= cos(angle) * overlap * 0.5;
+                                ball.y -= sin(angle) * overlap * 0.5;
+                                otherBall.x += cos(angle) * overlap * 0.5;
+                                otherBall.y += sin(angle) * overlap * 0.5;
+                            }
+                        }
+
+                        // Draw ball
+                        stroke(1, 64, 3);
+                        fill(230, 255, 130);
+                        ellipse(ball.x, ball.y, ball.radius, ball.radius);
+
+                        // Update ball angle
+                        ball.angle += 0.05;
+                    }
+                };
+            }
+        };
+
+        // Get the canvas that ProcessingJS will use
+        var canvas = document.getElementById("mycanvas");
+        // Pass the function to ProcessingJS constructor
+        var processingInstance = new Processing(canvas, programCode);
+    </script>
+</body>
+</html>
