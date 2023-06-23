@@ -27,34 +27,28 @@
                 // Ball properties
                 var balls = [];
                 var numBalls = 300;
-                var minRadius = 10;
+                var minRadius = 15;
                 var maxRadius = 40;
-                var minSpeed = 1;
-                var maxSpeed = 5;
-                var collisionPadding = 2;
+                var minSpeed = 0;
+                var maxSpeed = 3;
 
                 // Initialize balls with random positions, sizes, and speeds
                 for (var i = 0; i < numBalls; i++) {
                     var ball = {
                         x: random(maxRadius, width - maxRadius),
                         y: random(maxRadius, height - maxRadius),
-                        radius: random(minRadius, maxRadius),
-                        speed: random(minSpeed, maxSpeed),
-                        angle: random(TWO_PI)
+                        radius: random(minRadius, maxRadius)
                     };
 
                     balls.push(ball);
                 }
 
                 var draw = function() {
+                    size(window.innerWidth, window.innerHeight);
                     background(26, 0, 41);
 
                     for (var i = 0; i < balls.length; i++) {
                         var ball = balls[i];
-
-                        // Update ball position based on speed and angle
-                        ball.x += cos(ball.angle) * ball.speed;
-                        ball.y += sin(ball.angle) * ball.speed;
 
                         // Check for collisions with the edges of the canvas
                         if (ball.x - ball.radius < 0 || ball.x + ball.radius > width) {
@@ -62,9 +56,9 @@
 
                             // Separate the ball from the wall
                             if (ball.x - ball.radius < 0) {
-                                ball.x = ball.radius + collisionPadding;
+                                ball.x = ball.radius;
                             } else {
-                                ball.x = width - ball.radius - collisionPadding;
+                                ball.x = width - ball.radius;
                             }
                         }
                         if (ball.y - ball.radius < 0 || ball.y + ball.radius > height) {
@@ -72,14 +66,14 @@
 
                             // Separate the ball from the wall
                             if (ball.y - ball.radius < 0) {
-                                ball.y = ball.radius + collisionPadding;
+                                ball.y = ball.radius;
                             } else {
-                                ball.y = height - ball.radius - collisionPadding;
+                                ball.y = height - ball.radius;
                             }
                         }
 
                         // Check for collisions with other balls
-                        for (var j = i + 1; j < balls.length; j++) {
+                        for (var j = i; j < balls.length; j++) {
                             var otherBall = balls[j];
                             var dx = otherBall.x - ball.x;
                             var dy = otherBall.y - ball.y;
@@ -91,15 +85,11 @@
                                 var angle = atan2(dy, dx);
                                 var targetX = ball.x + cos(angle) * minDistance;
                                 var targetY = ball.y + sin(angle) * minDistance;
-                                var ax = (targetX - otherBall.x) * 0.1;
-                                var ay = (targetY - otherBall.y) * 0.1;
-
-                                // Update velocities
-                                ball.angle = atan2(ay, ax);
-                                otherBall.angle = atan2(-ay, -ax);
+                                var ax = (targetX - otherBall.x) * 1;
+                                var ay = (targetY - otherBall.y) * 1;
 
                                 // Separate the balls slightly
-                                var overlap = minDistance - distance + collisionPadding;
+                                var overlap = minDistance - distance;
                                 ball.x -= cos(angle) * overlap * 0.5;
                                 ball.y -= sin(angle) * overlap * 0.5;
                                 otherBall.x += cos(angle) * overlap * 0.5;
@@ -112,8 +102,6 @@
                         fill(230, 255, 130);
                         ellipse(ball.x, ball.y, ball.radius, ball.radius);
 
-                        // Update ball angle
-                        ball.angle += 0.05;
                     }
                 };
             }
