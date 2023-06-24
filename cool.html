@@ -22,11 +22,11 @@
         var programCode = function(processingInstance) {
             with (processingInstance) {
                 size(window.innerWidth, window.innerHeight);
-                frameRate(60);
+                frameRate(30);
 
                 // Ball properties
                 var balls = [];
-                var numBalls = 300;
+                var numBalls = 500;
                 var minRadius = 15;
                 var maxRadius = 40;
                 var minSpeed = 0;
@@ -98,8 +98,6 @@
                         }
 
                         // Draw ball
-                        stroke(1, 64, 3);
-                        fill(230, 255, 130);
                         ellipse(ball.x, ball.y, ball.radius, ball.radius);
 
                     }
