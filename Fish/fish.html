@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title> Fish Game! </title>
+<style>
+html{
+	background-color: black;
+}
+h1{
+	-webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+	position: relative;
+  left: 200px;
+	font-family: Arial, Helvetica, sans-serif;
+color: white;
+	background-image: linear-gradient(100deg, black, grey, black);
+	font-size: 40px;
+	width: 224px;
+	border-radius: 5px;
+}
+</style>
+background-color: #1c87c9;
+<script src="https://simplycodingcourses.com/files/simplyjs/simply.js"></script>
+<script>
+function start(){
+sjs.open("target", 800, 500);
+
+var playM = new Audio('Music/fish.mp3');
+
+var background = new sjs.Image("Images/space5.png");
+background.setSize(sjs.getWidth(), sjs.getHeight());
+
+//player
+var player = new sjs.Image("Images/background.png");
+player.type = "player";
+player.setSize(100,100);
+player.friction = 1;
+player.accel = 1.5; 
+
+sjs.keyDown(D_KEY, function(){ 
+player.pushRight();
+});
+
+sjs.keyDown(A_KEY, function(){ 
+player.pushLeft();
+}); 
+
+sjs.keyDown(W_KEY, function(){ 
+player.pushUp();
+}); 
+
+sjs.keyDown(S_KEY, function(){ 
+player.pushDown();
+}); 
+
+//power
+setInterval(function(){ 
+var x = Math.floor(Math.random() * 783);
+var y = Math.floor(Math.random() * 470); 
+var powerUp = new sjs.Image("Images/crumbs.png");
+powerUp.type = "powerUp";
+powerUp.setGravity();
+powerUp.setSize(17,30);
+powerUp.noBounds = true;
+powerUp.moveTo(x, 0); 
+powerUp.friction = .2; 
+}, 5000);
+
+sjs.onHit("powerUp","bottom_screen",function(x,y){
+x.destroy();
+}); 
+
+sjs.onHit("player","powerUp",function(x,y){
+x.grow(10);
+
+setTimeout(function(){
+x.grow(-9);
+}, 4000);
+
+y.destroy();
+}); 
+
+//Fish
+setInterval(function(){ 
+if(Math.random() > 0.5){ 
+var enemy = new sjs.Image("Images/fish2_right.png");
+enemy.type = "enemy";
+enemy.setSize(100,50);
+enemy.noBounds = true;
+enemy.friction = 0;
+enemy.pushRight(Math.random()*2); 
+enemy.scaleSize(.5 + Math.random() * 1.3);
+enemy.moveTo(-enemy.getWidth(), Math.random()*(enemy.getClamp().y)); 
+} 
+},777); 
+sjs.left_screen.offset(-500); 
+sjs.onHit("enemy",["right_screen","left_screen"], function(x,y){
+x.destroy();
+});
+
+sjs.onHit("player","enemy", function(x,y){ 
+	playM.play();
+if(x.getWidth() > y.getWidth() && x.getHeight() > y.getHeight()) {
+x.grow(10);
+} else {
+x.destroy();
+window.location = "fish.html";
+}
+y.destroy(); 
+}); 
+
+} //end start
+</script>
+</head>
+<body onload="start()">
+<h1> Fish Game! </h1>
+
+<div id="target" style="margin:auto;background:grey;"></div>
+</body>
+</html>
