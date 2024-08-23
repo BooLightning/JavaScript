@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<!--
+version 3
+-->
 <html>
 <head>
     <meta charset="utf-8">
@@ -22,15 +25,15 @@
         var programCode = function(processingInstance) {
             with (processingInstance) {
                 size(window.innerWidth, window.innerHeight);
-                frameRate(30);
+                frameRate(0);
 
                 // Ball properties
                 var balls = [];
-                var numBalls = 500;
-                var minRadius = 15;
+                var numBalls = 314;
+                var minRadius = 20;
                 var maxRadius = 40;
                 var minSpeed = 0;
-                var maxSpeed = 3;
+                var maxSpeed = 0;
 
                 // Initialize balls with random positions, sizes, and speeds
                 for (var i = 0; i < numBalls; i++) {
@@ -78,7 +81,7 @@
                             var dx = otherBall.x - ball.x;
                             var dy = otherBall.y - ball.y;
                             var distance = dist(ball.x, ball.y, otherBall.x, otherBall.y);
-                            var minDistance = ball.radius + otherBall.radius;
+                            var minDistance = ball.radius + otherBall.radius - 20;
 
                             if (distance < minDistance) {
                                 // Calculate collision response
@@ -90,10 +93,10 @@
 
                                 // Separate the balls slightly
                                 var overlap = minDistance - distance;
-                                ball.x -= cos(angle) * overlap * 0.5;
-                                ball.y -= sin(angle) * overlap * 0.5;
-                                otherBall.x += cos(angle) * overlap * 0.5;
-                                otherBall.y += sin(angle) * overlap * 0.5;
+                                ball.x -= cos(angle) * overlap * 0.2;
+                                ball.y -= sin(angle) * overlap * 0.2;
+                                otherBall.x += cos(angle) * overlap * 0.2;
+                                otherBall.y += sin(angle) * overlap * 0.2;
                             }
                         }
 
